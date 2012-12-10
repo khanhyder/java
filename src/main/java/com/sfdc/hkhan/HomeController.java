@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
@@ -49,11 +50,17 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/rest/math/betadist", method = RequestMethod.GET)
+	/* @RequestMapping(value = "/rest/math/betadist", method = RequestMethod.GET)
 	public ModelAndView getBetaDistribution(@RequestParam("a") double a, @RequestParam("b") double b, @RequestParam("x") double x)
 	{
 		double cdf = mathService.getBetaDistribution(a, b, x);
 		return new ModelAndView(jsonView,DATA_FIELD,cdf);
+	} */
+	@RequestMapping(value = "/rest/math/betadist", method = RequestMethod.GET)
+	@ResponseBody
+	public String getBetaDistribution(@RequestParam("a") double a, @RequestParam("b") double b, @RequestParam("x") double x)
+	{
+		double cdf = mathService.getBetaDistribution(a, b, x);
+		return new Double(cdf).toString();
 	}
-	
 }
